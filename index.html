@@ -9,7 +9,7 @@
                     height:100%;
                     margin:0;
                 }
-                #mapTalesOfEchia,#mapTalesOfEchia_Regions,#mapTalesOfEchia_Topo,#mapTalesOfEchia_Bio{
+                .customMap{
                     position: absolute;
                     top:0;
                     left:0;
@@ -63,22 +63,22 @@
             <button class="buttonswitcher" id="couria">Couria</button>
             <ul class="listaSwitcher couriaUL" style="display:none">
                 <li class="elementoSwitcher couriaLi">
-                    <button class="buttonswitcher couriaButton cityClick" id="filtana">Filtana</button>
+                    <button class="buttonswitcher couriaButton cityClick" link="filtana" id="filtana">Filtana</button>
                 </li>
                 <li class="elementoSwitcher couriaLi">
-                    <button class="buttonswitcher couriaButton cityClick" id="parta">Parta</button>
+                    <button class="buttonswitcher couriaButton cityClick notYet" link="lati" id="lati">Lati</button>
                 </li>
                 <li class="elementoSwitcher couriaLi">
-                    <button class="buttonswitcher couriaButton cityClick" id="veno">Veno</button>
+                    <button class="buttonswitcher couriaButton cityClick notYet" link="parta" id="parta">Parta</button>
                 </li>
                 <li class="elementoSwitcher couriaLi">
-                    <button class="buttonswitcher couriaButton cityClick" id="lati">Lati</button>
+                    <button class="buttonswitcher couriaButton cityClick notYet" link="veno" id="veno">Veno</button>
                 </li>
             </ul>
             <button class="buttonswitcher" id="herug">Herug</button>
-            <ul class="listaSwitcher herugUL style="display:none"">
+            <ul class="listaSwitcher herugUL" style="display:none">
                 <li class="elementoSwitcher herugLi">
-                    <button class="buttonswitcher herugButton cityClick" id="gonfenoire">Gonfenoire</button>
+                    <button class="buttonswitcher herugButton cityClick notYet" link="gonfenoire" id="gonfenoire">Gonfenoire</button>
                 </li>
             </ul>
             <button class="buttonswitcher notYet" id="lagros">Lagros</button>
@@ -158,6 +158,7 @@
                 icon: filtanaIcon
             })
             Filtana.bindPopup('Capital de Couria: Filtana');
+            //<a link="filtana" class="cityClick" onclick="onClickCityClick()">Filtana</a>
 
             //Herug - Iunelon
             var Iunelon = L.marker([4.412137, 74.267578],{
@@ -211,12 +212,31 @@
             //#endregion
 
             //#region markers ciudades
-            //Couria - Filtana Map - FiltanaMarkers
-            var FiltanaCastilloPaladines = L.marker([13.603278, 49.724121],{
-                draggable: true,
-                icon: filtanaIcon
-            })
-            Filtana.bindPopup('Castillo de los Paladines - RIP');
+
+                //#region markers Couria
+                    //#region Filtana
+                    var Filtana_CastilloPaladines = L.marker([13.603278, 49.724121],{
+                        draggable: true
+                    })
+                    Filtana_CastilloPaladines.bindPopup('Castillo de los Paladines - RIP');
+                    //#endregion
+                    //#region Lati
+
+                    //#endregion
+                    //#region Parta
+                    
+                    //#endregion
+                    //#region Veno
+                    
+                    //#endregion
+                //#endregion
+
+                //#region markers Herug
+                    //#region Gonfenoire
+                    
+                    //#endregion
+                //#endregion
+
             //#endregion
             //locateTheParty
             /*party.on('dragend',function(e){
@@ -275,7 +295,7 @@
 
             //dynamicCity
             function addCity(city){
-                mapa = L.map('map'+city).setView([0,0],1); 
+                mapa = L.map('map'+city).setView([0,0],1);
                 L.tileLayer('Tiles'+city+'/{z}/{x}/{y}.png',{
                     minZoom:4,
                     maxZoom: 6,
@@ -339,23 +359,41 @@
                 addBioMap();
             })
             $('.cityClick').on('click',function(){
-                var IdCity = this.id;
+                if (this.classList.contains('notYet')){
+                    alert("Under construction!")
+                }else{
+                    var IdCity = $(this).attr('link');
+                    console.log($(this).html())
+                    removeMaps();
+                    $('body').append('<div id="map'+IdCity+'" class="customMap"></div>');
+                    addCity(IdCity);
+                }
+                
+            })
+            function onClickCityClick(){
+                var IdCity = $(this).attr('link');
+                console.log(IdCity)
                 removeMaps();
                 $('body').append('<div id="map'+IdCity+'" class="customMap"></div>');
                 addCity(IdCity);
-            })
+            }
         //switcher ciudades
             $('#couria,#herug,#lagros,#nowe,#ocresyn,#perterra,#vopna').on('click',function(){
-                var IdPais = this.id;
-                if ($('.'+IdPais+'UL').css('display') == "none"){
-                $('.'+IdPais+'UL').show();
+                if (this.classList.contains('notYet')){
+                    alert("You haven't visited this country!")
                 }else{
-                    $('.'+IdPais+'UL').hide();
+                    var IdPais = this.id;
+                    if ($('.'+IdPais+'UL').css('display') == "none"){
+                    $('.'+IdPais+'UL').show();
+                    }else{
+                        $('.'+IdPais+'UL').hide();
+                    }
                 }
+                
             })
 
         //START of the actual execution
-            $('body').append('<div id="mapTalesOfEchia"></div>');
+            $('body').append('<div id="mapTalesOfEchia" class="customMap"></div>');
             addNormalMap();
         </script>
     </body>
