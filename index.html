@@ -47,6 +47,11 @@
                 ul{
                     padding:inherit !important;
                 }
+                .leaflet-popup-content-wrapper, .leaflet-popup-tip{
+                    background: rgba(10,10,10,0.6) !important;
+                    color: white !important;
+                }
+                
         </style>
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
         <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
@@ -66,13 +71,13 @@
                     <button class="buttonswitcher couriaButton cityClick" link="filtana" id="filtana">Filtana</button>
                 </li>
                 <li class="elementoSwitcher couriaLi">
-                    <button class="buttonswitcher couriaButton cityClick notYet" link="lati" id="lati">Lati</button>
+                    <button class="buttonswitcher couriaButton cityClick" link="lati" id="lati">Lati</button>
                 </li>
                 <li class="elementoSwitcher couriaLi">
-                    <button class="buttonswitcher couriaButton cityClick notYet" link="parta" id="parta">Parta</button>
+                    <button class="buttonswitcher couriaButton cityClick" link="parta" id="parta">Parta</button>
                 </li>
                 <li class="elementoSwitcher couriaLi">
-                    <button class="buttonswitcher couriaButton cityClick notYet" link="veno" id="veno">Veno</button>
+                    <button class="buttonswitcher couriaButton cityClick" link="veno" id="veno">Veno</button>
                 </li>
             </ul>
             <button class="buttonswitcher" id="herug">Herug</button>
@@ -297,8 +302,8 @@
             function addCity(city){
                 mapa = L.map('map'+city).setView([0,0],1);
                 L.tileLayer('Tiles'+city+'/{z}/{x}/{y}.png',{
-                    minZoom:4,
-                    maxZoom: 6,
+                    minZoom:3,
+                    maxZoom: 5,
                     conituousWorld: false,
                     noWrap: true
                 }).addTo(mapa);
