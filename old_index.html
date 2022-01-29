@@ -1,0 +1,405 @@
+<html>
+    <head>
+        <style>
+                html{
+                    height:100%;
+                    margin:0;
+                }
+                body{
+                    height:100%;
+                    margin:0;
+                }
+                .customMap{
+                    position: absolute;
+                    top:0;
+                    left:0;
+                    bottom:0;
+                    right:0;
+                    width:100%;
+                    height:100%;
+                    background:#a2bbb5;
+                }
+                #switcher{
+                    position: absolute;
+                    top:0;
+                    left:4em;
+                    width:auto;
+                    height: auto;
+                    z-index: 401;
+                }
+                #switcherCity{
+                    position: absolute;
+                    top: 0;
+                    left: 12em;
+                    width: auto;
+                    height: auto;
+                    z-index: 401;
+                }
+                .buttonswitcher{
+                    display:block;
+                    margin-right:auto;
+                    margin-left:auto;
+                    width:6em;
+                    border-radius: 5px;
+                    background-color:rgba(10,10,10,0.5);
+                    color:white;
+                }
+                ul{
+                    padding:inherit !important;
+                }
+                .leaflet-popup-content-wrapper, .leaflet-popup-tip{
+                    background: rgba(10,10,10,0.6) !important;
+                    color: white !important;
+                }
+                
+        </style>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <div id="switcher">
+            <button class="buttonswitcher" id="normal">Mapa estándar</button>
+            <button class="buttonswitcher" id="regions">Mapa regiones</button>
+            <button class="buttonswitcher" id="topo">Mapa topográfico</button>
+            <button class="buttonswitcher" id="bio">Mapa biomas</button>
+        </div>
+        <div id="switcherCity">
+            <button class="buttonswitcher" id="couria">Couria</button>
+            <ul class="listaSwitcher couriaUL" style="display:none">
+                <li class="elementoSwitcher couriaLi">
+                    <button class="buttonswitcher couriaButton cityClick" link="filtana" id="filtana">Filtana</button>
+                </li>
+                <li class="elementoSwitcher couriaLi">
+                    <button class="buttonswitcher couriaButton cityClick" link="lati" id="lati">Lati</button>
+                </li>
+                <li class="elementoSwitcher couriaLi">
+                    <button class="buttonswitcher couriaButton cityClick" link="parta" id="parta">Parta</button>
+                </li>
+                <li class="elementoSwitcher couriaLi">
+                    <button class="buttonswitcher couriaButton cityClick" link="veno" id="veno">Veno</button>
+                </li>
+            </ul>
+            <button class="buttonswitcher" id="herug">Herug</button>
+            <ul class="listaSwitcher herugUL" style="display:none">
+                <li class="elementoSwitcher herugLi">
+                    <button class="buttonswitcher herugButton cityClick notYet" link="gonfenoire" id="gonfenoire">Gonfenoire</button>
+                </li>
+            </ul>
+            <button class="buttonswitcher notYet" id="lagros">Lagros</button>
+            <button class="buttonswitcher notYet" id="nowe">Nowe</button>
+            <button class="buttonswitcher notYet" id="ocresyn">Ocresyn</button>
+            <button class="buttonswitcher notYet" id="perterra">Perterra</button>
+            <button class="buttonswitcher notYet" id="vopna">Vopna</button>
+        </div>
+        <script>
+        //variables
+            var markers = [];
+            var markersfiltana = [];
+            var markerslati = [];
+            var mapa;
+            
+            //#region icons
+            var filtanaIcon = L.icon({
+                iconUrl: 'leaflet/images/couria.png',
+                iconSize: [60, 60],
+                iconAnchor: [30, 60],
+                popupAnchor: [0, -40]
+            });
+            var IunelonIcon = L.icon({
+                iconUrl: 'leaflet/images/herug.png',
+                iconSize: [60, 60],
+                iconAnchor: [30, 60],
+                popupAnchor: [0, -40]
+            });
+            var VilondeIcon = L.icon({
+                iconUrl: 'leaflet/images/ocresyn.png',
+                iconSize: [60, 60],
+                iconAnchor: [30, 60],
+                popupAnchor: [0, -40]
+            });
+            var FetlondIcon = L.icon({
+                iconUrl: 'leaflet/images/perterra.png',
+                iconSize: [60, 60],
+                iconAnchor: [30, 60],
+                popupAnchor: [0, -40]
+            });
+            var ZunzirIcon = L.icon({
+                iconUrl: 'leaflet/images/nowe.png',
+                iconSize: [60, 60],
+                iconAnchor: [30, 60],
+                popupAnchor: [0, -40]
+            });
+            var BaranunIcon = L.icon({
+                iconUrl: 'leaflet/images/lagros.png',
+                iconSize: [60, 60],
+                iconAnchor: [30, 60],
+                popupAnchor: [0, -40]
+            });
+            var RaumerinIcon = L.icon({
+                iconUrl: 'leaflet/images/vopna.png',
+                iconSize: [60, 60],
+                iconAnchor: [30, 60],
+                popupAnchor: [0, -40]
+            });
+            var partyIcon = L.icon({
+                iconUrl: 'leaflet/images/dndicon.png',
+                iconSize: [30, 28],
+                iconAnchor: [15, 30],
+                popupAnchor: [0, -20]
+            });
+            //#endregion
+            
+            var party = L.marker([11.888853, 49.152832],{
+                draggable: false,
+                icon:partyIcon,
+            })
+            party.bindPopup('Party');
+            
+            //#region markers capitales
+            //Couria - Filtana
+            var Filtana = L.marker([13.603278, 49.724121],{
+                draggable: true,
+                icon: filtanaIcon
+            })
+            Filtana.bindPopup('Capital de Couria: Filtana');
+            //<a link="filtana" class="cityClick" onclick="onClickCityClick()">Filtana</a>
+
+            //Herug - Iunelon
+            var Iunelon = L.marker([4.412137, 74.267578],{
+                draggable: true,
+                icon: IunelonIcon,
+                draggable: false
+            })
+            Iunelon.bindPopup('Capital de Herug: Iunelon');
+
+            //Ocresyn - Vilonde
+            var Vilonde = L.marker([-24.307053, 70.532227],{
+                draggable: true,
+                icon: VilondeIcon,
+                draggable: false
+            })
+            Vilonde.bindPopup('Capital de Ocresyn: Vilonde');
+
+            //Perterra - Fetlond
+            var Fetlond = L.marker([-13.816744, 37.507324],{
+                draggable: true,
+                icon: FetlondIcon,
+                draggable: false
+            })
+            Fetlond.bindPopup('Capital de Perterra: Fetlond');
+
+            //Nowe - Zunzir
+            var Zunzir = L.marker([-8.05923, 0.505371],{
+                draggable: true,
+                icon: ZunzirIcon,
+                draggable: false
+            })
+            Zunzir.bindPopup('Capital de Nowe: Zunzir');
+            
+            //Lagros - Baranun
+            var Baranun = L.marker([-13.731381, -59.963379],{
+                draggable: true,
+                icon: BaranunIcon,
+                draggable: false
+            })
+            Baranun.bindPopup('Capital de Lagros: Baranun');
+
+            //Vopna - Raumerin
+            var Raumerin = L.marker([20.344627, 24.191895],{
+                draggable: true,
+                icon: RaumerinIcon,
+                draggable: false
+            })
+            Raumerin.bindPopup('Capital de Vopna: Raumerin');
+
+            markers.push(party, Filtana, Iunelon, Vilonde, Fetlond, Zunzir, Baranun, Raumerin);
+            //#endregion
+
+            //#region markers ciudades
+
+                //#region markers Couria
+                    //#region Filtana
+                    var Filtana_CastilloPaladines = L.marker([13.603278, 49.724121],{
+                        draggable: true
+                    })
+                    Filtana_CastilloPaladines.bindPopup('Castillo de los Paladines - RIP');
+                    //#endregion
+                    //#region Lati
+
+                    //#endregion
+                    //#region Parta
+                    
+                    //#endregion
+                    //#region Veno
+                    
+                    //#endregion
+                //#endregion
+
+                //#region markers Herug
+                    //#region Gonfenoire
+                    
+                    //#endregion
+                //#endregion
+
+            //#endregion
+            //locateTheParty
+            /*party.on('dragend',function(e){
+                party.getPopup().setContent('Clicked'+ party.getLatLng().toString()).openOn(mapa);
+                updatePartyMarker();
+            })*/
+
+        //functions
+            //estandar
+            function addNormalMap(){
+                mapa = L.map('mapTalesOfEchia').setView([0,0],1); 
+                L.tileLayer('TilesNormalHex/{z}/{x}/{y}.png',{
+                    minZoom:4,
+                    maxZoom: 6,
+                    conituousWorld: false,
+                    noWrap: true
+                }).addTo(mapa);
+                addMarkers(mapa);
+            }
+
+            //regions
+            function addRegionMap(){
+                mapa = L.map('mapTalesOfEchia_Regions').setView([0,0],1); 
+                L.tileLayer('TilesRegions/{z}/{x}/{y}.png',{
+                    minZoom:4,
+                    maxZoom: 6,
+                    conituousWorld: false,
+                    noWrap: true
+                }).addTo(mapa);
+                addMarkers(mapa);
+            }
+
+            //topo      
+            function addTopoMap(){
+                mapa = L.map('mapTalesOfEchia_Topo').setView([0,0],1); 
+                L.tileLayer('TilesTopo/{z}/{x}/{y}.png',{
+                    minZoom:4,
+                    maxZoom: 6,
+                    conituousWorld: false,
+                    noWrap: true
+                }).addTo(mapa);
+                addMarkers(mapa);
+            }
+
+            //bio
+            function addBioMap(){
+                mapa = L.map('mapTalesOfEchia_Bio').setView([0,0],1); 
+                L.tileLayer('TilesBio/{z}/{x}/{y}.png',{
+                    minZoom:4,
+                    maxZoom: 6,
+                    conituousWorld: false,
+                    noWrap: true
+                }).addTo(mapa);
+                addMarkers(mapa);
+            }
+
+            //dynamicCity
+            function addCity(city){
+                mapa = L.map('map'+city).setView([0,0],1);
+                L.tileLayer('Tiles'+city+'/{z}/{x}/{y}.png',{
+                    minZoom:3,
+                    maxZoom: 5,
+                    conituousWorld: false,
+                    noWrap: true
+                }).addTo(mapa);
+                addMarkersCity(mapa,city);
+            }
+
+            //remove maps of the body
+            function removeMaps(){
+                mapa.remove();
+                $('.customMap').remove();
+            }
+            
+            //detect position --ERASE EVENTUALLY
+            function addDetectPosition(mapa){
+                mapa.on('click', function(e) {
+                    alert(e.latlng);
+                });
+            }
+
+            //add markers
+            function addMarkers(mapa){
+                for (let i = 0; i < markers.length; i++) {
+                    markers[i].addTo(mapa);
+                }
+            }
+
+            //add markers for city dynamic
+            function addMarkersCity(mapa,city){
+                console.log(window['markers'+city]);
+                
+            }
+            
+            //updatePartyMarker
+            function updatePartyMarker(party){
+                
+            }
+        
+        //On clicks
+        //switcher mapas
+            $('#normal').on('click',function(){
+                removeMaps();
+                $('body').append('<div id="mapTalesOfEchia" class="customMap"></div>');
+                addNormalMap();
+            })
+            $('#regions').on('click',function(){
+                removeMaps();
+                $('body').append('<div id="mapTalesOfEchia_Regions" class="customMap"></div>');
+                addRegionMap();
+            })
+            $('#topo').on('click',function(){
+                removeMaps();
+                $('body').append('<div id="mapTalesOfEchia_Topo" class="customMap"></div>');
+                addTopoMap();
+            })
+            $('#bio').on('click',function(){
+                removeMaps();
+                $('body').append('<div id="mapTalesOfEchia_Bio" class="customMap"></div>');
+                addBioMap();
+            })
+            $('.cityClick').on('click',function(){
+                if (this.classList.contains('notYet')){
+                    alert("Under construction!")
+                }else{
+                    var IdCity = $(this).attr('link');
+                    console.log($(this).html())
+                    removeMaps();
+                    $('body').append('<div id="map'+IdCity+'" class="customMap"></div>');
+                    addCity(IdCity);
+                }
+                
+            })
+            function onClickCityClick(){
+                var IdCity = $(this).attr('link');
+                console.log(IdCity)
+                removeMaps();
+                $('body').append('<div id="map'+IdCity+'" class="customMap"></div>');
+                addCity(IdCity);
+            }
+        //switcher ciudades
+            $('#couria,#herug,#lagros,#nowe,#ocresyn,#perterra,#vopna').on('click',function(){
+                if (this.classList.contains('notYet')){
+                    alert("You haven't visited this country!")
+                }else{
+                    var IdPais = this.id;
+                    if ($('.'+IdPais+'UL').css('display') == "none"){
+                    $('.'+IdPais+'UL').show();
+                    }else{
+                        $('.'+IdPais+'UL').hide();
+                    }
+                }
+                
+            })
+
+        //START of the actual execution
+            $('body').append('<div id="mapTalesOfEchia" class="customMap"></div>');
+            addNormalMap();
+        </script>
+    </body>
+</html>

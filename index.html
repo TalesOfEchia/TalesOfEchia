@@ -68,22 +68,22 @@
             <button class="buttonswitcher" id="couria">Couria</button>
             <ul class="listaSwitcher couriaUL" style="display:none">
                 <li class="elementoSwitcher couriaLi">
-                    <button class="buttonswitcher couriaButton cityClick" link="filtana" id="filtana">Filtana</button>
+                    <button class="buttonswitcher couriaButton cityClick" link="Filtana" id="filtana">Filtana</button>
                 </li>
                 <li class="elementoSwitcher couriaLi">
-                    <button class="buttonswitcher couriaButton cityClick" link="lati" id="lati">Lati</button>
+                    <button class="buttonswitcher couriaButton cityClick" link="Lati" id="lati">Lati</button>
                 </li>
                 <li class="elementoSwitcher couriaLi">
-                    <button class="buttonswitcher couriaButton cityClick" link="parta" id="parta">Parta</button>
+                    <button class="buttonswitcher couriaButton cityClick" link="Parta" id="parta">Parta</button>
                 </li>
                 <li class="elementoSwitcher couriaLi">
-                    <button class="buttonswitcher couriaButton cityClick" link="veno" id="veno">Veno</button>
+                    <button class="buttonswitcher couriaButton cityClick" link="Veno" id="veno">Veno</button>
                 </li>
             </ul>
             <button class="buttonswitcher" id="herug">Herug</button>
             <ul class="listaSwitcher herugUL" style="display:none">
                 <li class="elementoSwitcher herugLi">
-                    <button class="buttonswitcher herugButton cityClick notYet" link="gonfenoire" id="gonfenoire">Gonfenoire</button>
+                    <button class="buttonswitcher herugButton cityClick" link="Gonfenoire" id="gonfenoire">Gonfenoire</button>
                 </li>
             </ul>
             <button class="buttonswitcher notYet" id="lagros">Lagros</button>
@@ -93,179 +93,710 @@
             <button class="buttonswitcher notYet" id="vopna">Vopna</button>
         </div>
         <script>
+            const BBDD = {
+                "world":{
+                    "Couria":{
+                        "markers":{
+                            "Filtana":{
+                                "location":[13.603278,49.724121],
+                                "draggable":false,
+                                "bindPopup":"Capital de Couria: Filtana"
+                            },
+                            "Lati":{
+                                "location":[3.601142, 62.841797],
+                                "draggable":false,
+                                "bindPopup":"Lati",
+                                "tipoCiudad":"pueblo"
+                            },
+                            "Parta":{
+                                "location":[11.781325, 49.020996],
+                                "draggable":false,
+                                "bindPopup":"Parta",
+                                "tipoCiudad":"ciudad"
+                            },
+                            "Veno":{
+                                "location":[10.01213, 42.209473],
+                                "draggable":false,
+                                "bindPopup":"Veno",
+                                "tipoCiudad":"ciudad"
+                            }
+                        },
+                        "icons":{
+                            "Filtana":{
+                                "iconUrl":"leaflet/images/couria.png",
+                                "iconSize":[60,60],
+                                "iconAnchor":[30,60],
+                                "popupAnchor": [0,-40]
+                            },
+                            "pueblo":{
+                                "iconUrl":"leaflet/images/icons/pueblo.png",
+                                "iconSize":[45,45],
+                                "iconAnchor":[22,45],
+                                "popupAnchor": [0,-25]
+                            },
+                            "ciudad":{
+                                "iconUrl":"leaflet/images/icons/ciudad.png",
+                                "iconSize":[45,45],
+                                "iconAnchor":[22,45],
+                                "popupAnchor": [0,-25]
+                            }
+                        }
+                    },
+                    "Herug":{
+                        "markers":{
+                            "Iunelon":{
+                                "location":[4.412137, 74.267578],
+                                "draggable":false,
+                                "icon":"IunelonIcon",
+                                "bindPopup":"Capital de Herug: Iunelon"
+                            },
+                            "Gonfenoire":{
+                                "location":[-3.052754, 78.376465],
+                                "draggable":false,
+                                "bindPopup":"Gonfenoire",
+                                "tipoCiudad":"ciudad"
+                            }
+                        },
+                        "icons":{
+                            "Iunelon":{
+                                "iconUrl":"leaflet/images/herug.png",
+                                "iconSize":[60,60],
+                                "iconAnchor":[30,60],
+                                "popupAnchor": [0,-40]
+                            },
+                            "pueblo":{
+                                "iconUrl":"leaflet/images/icons/pueblo.png",
+                                "iconSize":[45,45],
+                                "iconAnchor":[22,45],
+                                "popupAnchor": [0,-25]
+                            },
+                            "ciudad":{
+                                "iconUrl":"leaflet/images/icons/ciudad.png",
+                                "iconSize":[45,45],
+                                "iconAnchor":[22,45],
+                                "popupAnchor": [0,-25]
+                            }
+                        }
+                    },
+                    "Ocresyn":{
+                        "markers":{
+                            "Vilonde":{
+                                "location":[-24.307053, 70.532227],
+                                "draggable":false,
+                                "icon":"VilondeIcon",
+                                "bindPopup":"Capital de Ocresyn: Vilonde"
+                            }
+                        },
+                        "icons":{
+                            "Vilonde":{
+                                "iconUrl":"leaflet/images/ocresyn.png",
+                                "iconSize":[60,60],
+                                "iconAnchor":[30,60],
+                                "popupAnchor": [0,-40]
+                            }
+                        }
+                    },
+                    "Perterra":{
+                        "markers":{
+                            "Fetlond":{
+                                "location":[-13.816744, 37.507324],
+                                "draggable":false,
+                                "icon":"FetlondIcon",
+                                "bindPopup":"Capital de Perterra: Fetlond"
+                            }
+                        },
+                        "icons":{
+                            "Fetlond":{
+                                "iconUrl":"leaflet/images/perterra.png",
+                                "iconSize":[60,60],
+                                "iconAnchor":[30,60],
+                                "popupAnchor": [0,-40]
+                            }
+                        }
+                    },
+                    "Nowe":{
+                        "markers":{
+                            "Zunzir":{
+                                "location":[-8.05923, 0.505371],
+                                "draggable":false,
+                                "icon":"ZunzirIcon",
+                                "bindPopup":"Capital de Nowe: Zunzir"
+                            }
+                        },
+                        "icons":{
+                            "Zunzir":{
+                                "iconUrl":"leaflet/images/nowe.png",
+                                "iconSize":[60,60],
+                                "iconAnchor":[30,60],
+                                "popupAnchor": [0,-40]
+                            }
+                        }
+                    },
+                    "Lagros":{
+                        "markers":{
+                            "Baranun":{
+                                "location":[-13.731381, -59.963379],
+                                "draggable":false,
+                                "icon":"BaranunIcon",
+                                "bindPopup":"Capital de Lagros: Baranun"
+                            }
+                        },
+                        "icons":{
+                            "Baranun":{
+                                "iconUrl":"leaflet/images/lagros.png",
+                                "iconSize":[60,60],
+                                "iconAnchor":[30,60],
+                                "popupAnchor": [0,-40]
+                            }
+                        }
+                    },
+                    "Vopna":{
+                        "markers":{
+                            "Raumerin":{
+                                "location":[20.344627, 24.191895],
+                                "draggable":false,
+                                "icon":"RaumerinIcon",
+                                "bindPopup":"Capital de Vopna: Raumerin"
+                            }
+                        },
+                        "icons":{
+                            "Raumerin":{
+                                "iconUrl":"leaflet/images/vopna.png",
+                                "iconSize":[60,60],
+                                "iconAnchor":[30,60],
+                                "popupAnchor": [0,-40]
+                            }
+                        }
+                    }
+                },
+                "cities":{
+                    "Filtana":{
+                        "markers":{
+                            "templo":{
+                                "location":[56.12106, 12.744141],
+                                "draggable":true,
+                                "bindPopup":"Templo Exegia Norte"
+                            },
+                            "templo2":{
+                                "location":[16.88866, 10.063477],
+                                "draggable":false,
+                                "bindPopup":"Templo Exegia Centro"
+                            },
+                            "templo3":{
+                                "location":[-40.680638, 9.84375],
+                                "draggable":false,
+                                "bindPopup":"Templo Exegia Centro"
+                            },
+                            "posada":{
+                                "location":[-8.711358875426512, 18.149414062500004],
+                                "draggable":false,
+                                "bindPopup":"Taberna Bru - "
+                            },
+                            "magos":{
+                                "location":[-12.168225677390119,11.997070312500002],
+                                "draggable":false,
+                                "bindPopup":"Tienda de Zerba"
+                            },
+                            "oculto":{
+                                "location":[3.0746950723696944,0.9667968750000001],
+                                "draggable":false,
+                                "bindPopup":"Universidad de Couria"
+                            },
+                            "poi":{
+                                "location":[12.168225677390119,-30.805664062500004],
+                                "draggable":false,
+                                "bindPopup":"Villa de Moira"
+                            },
+                            "poi2":{
+                                "location":[1.537901237431487,-49.83398437500001],
+                                "draggable":false,
+                                "bindPopup":"Baños termales"
+                            },
+                            "poi3":{
+                                "location":[4.258768357308007,-48.60351562500001],
+                                "draggable":false,
+                                "bindPopup":"Burdel"
+                            },
+                            "puerto":{
+                                "location":[35.209721645221386,37.66113281250001],
+                                "draggable":false,
+                                "bindPopup":"Puerto"
+                            }
+                        }
+                    },
+                    "Lati":{
+                        
+                    },
+                    "Parta":{
+                        "markers":{
+                            "puente":{
+                                "location":[21.616579336740603,38.3203125],
+                                "draggable":false,
+                                "bindPopup":"Puente"
+                            },
+                            "puerto":{
+                                "location":[-5.0909441750333855,28.4765625],
+                                "draggable":false,
+                                "bindPopup":"Puerto de Parta"
+                            },
+                            "establos":{
+                                "location":[-10.962764256386821,-55.19531250000001],
+                                "draggable":false,
+                                "bindPopup":"Establos de Vadrug"
+                            },
+                            "posada":{
+                                "location":[-1.2303741774326018,-18.193359375000004],
+                                "draggable":false,
+                                "bindPopup":"Posada de Nethbis"
+                            },
+                            "templo":{
+                                "location":[21.12549763660629,7.382812500000001],
+                                "draggable":false,
+                                "bindPopup":"Templo a Exegis y Keeus"
+                            },
+                            "magos":{
+                                "location":[-6.708253968671543,-37.48535156250001],
+                                "draggable":false,
+                                "bindPopup":"Tienda de Kelkian"
+                            }
+                        }
+                    },
+                    "Veno":{
+                        "markers":{
+                            "templo":{
+                                "location":[41.77131167976407,29.003906250000004],
+                                "draggable":false,
+                                "bindPopup":"Templo de Ikved a Exegis"
+                            },
+                            "casa":{
+                                "location":[35.746512259918504,34.27734375000001],
+                                "draggable":false,
+                                "bindPopup":"Mansión del Barón de Veno"
+                            },
+                            "sastre":{
+                                "location":[7.536764322084078,33.75000000000001],
+                                "draggable":false,
+                                "bindPopup":"Sastería de Belace"
+                            },
+                            "posada":{
+                                "location":[4.039617826768437, 13.798828125000002],
+                                "draggable":false,
+                                "bindPopup":"Los ocho calderos - Posada de Ninoa"
+                            }
+                        }
+                    },
+                    "Gonfenoire":{
+                        "markers":{
+                            "templo":{
+                                "location":[-10.141931686131018,12.48046875],
+                                "draggable":false,
+                                "bindPopup":"Templo a Eae"
+                            },
+                            "templo":{
+                                "location":[4.12728532324537,4.306640625000001],
+                                "draggable":false,
+                                "bindPopup":"Tributo"
+                            },
+                            "posada":{
+                                "location":[15.072123545811683,44.12109375],
+                                "draggable":false,
+                                "bindPopup":"El loro vengativo"
+                            },
+                            "posada2":{
+                                "location":[29.53522956294847,-6.416015625000001],
+                                "draggable":false,
+                                "bindPopup":"Barril Vacío"
+                            },
+                            "poi":{
+                                "location":[-19.020577110966798,-2.7246093750000004],
+                                "draggable":false,
+                                "bindPopup":"Ojos de serpiente"
+                            },
+                            "forja":{
+                                "location":[-2.152813583128846,-36.12304687500001],
+                                "draggable":false,
+                                "bindPopup":"Metal ideal"
+                            },
+                            "forja2":{
+                                "location":[10.617418067950293,28.608398437500004],
+                                "draggable":false,
+                                "bindPopup":"Fuegos azules"
+                            },
+                            "cementerio":{
+                                "location":[-29.382175075145277,-15.996093750000002],
+                                "draggable":false,
+                                "bindPopup":"Cementerio de Gonfenoire"
+                            },
+                            "tienda":{
+                                "location":[15.961329081596647,15.556640625000002],
+                                "draggable":false,
+                                "bindPopup":"Mercado de Gonfenoire"
+                            }
+                        }
+                    }
+                },
+                "genericIcons":{
+                    "alquimista":{
+                        "iconUrl":"leaflet/images/icons/alquimista.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "arboleda":{
+                        "iconUrl":"leaflet/images/icons/arboleda.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "arsenal":{
+                        "iconUrl":"leaflet/images/icons/arsenal.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "banco":{
+                        "iconUrl":"leaflet/images/icons/banco.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "campamento":{
+                        "iconUrl":"leaflet/images/icons/campamento.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "campodebatalla":{
+                        "iconUrl":"leaflet/images/icons/campodebatalla.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "campodebatallaboss":{
+                        "iconUrl":"leaflet/images/icons/campodebatallaboss.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "caravana":{
+                        "iconUrl":"leaflet/images/icons/caravana.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "casa":{
+                        "iconUrl":"leaflet/images/icons/casa.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "cementerio":{
+                        "iconUrl":"leaflet/images/icons/cementerio.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "ciudad":{
+                        "iconUrl":"leaflet/images/icons/ciudad.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "color":{
+                        "iconUrl":"leaflet/images/icons/color.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "cripta":{
+                        "iconUrl":"leaflet/images/icons/cripta.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "cueva":{
+                        "iconUrl":"leaflet/images/icons/cueva.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "dungeon":{
+                        "iconUrl":"leaflet/images/icons/dungeon.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "encantamiento":{
+                        "iconUrl":"leaflet/images/icons/encantamiento.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "escudo":{
+                        "iconUrl":"leaflet/images/icons/escudo.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "establos":{
+                        "iconUrl":"leaflet/images/icons/establos.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "estado":{
+                        "iconUrl":"leaflet/images/icons/estado.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "evento":{
+                        "iconUrl":"leaflet/images/icons/evento.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "faro":{
+                        "iconUrl":"leaflet/images/icons/faro.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "forja":{
+                        "iconUrl":"leaflet/images/icons/forja.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "forja2":{
+                        "iconUrl":"leaflet/images/icons/forja.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "fort":{
+                        "iconUrl":"leaflet/images/icons/fort.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "fortaleza":{
+                        "iconUrl":"leaflet/images/icons/fortaleza.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "granja":{
+                        "iconUrl":"leaflet/images/icons/granja.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "joyero":{
+                        "iconUrl":"leaflet/images/icons/joyero.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "luchador":{
+                        "iconUrl":"leaflet/images/icons/luchador.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "madera":{
+                        "iconUrl":"leaflet/images/icons/madera.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "magos":{
+                        "iconUrl":"leaflet/images/icons/magos.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "mina":{
+                        "iconUrl":"leaflet/images/icons/mina.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "mueble":{
+                        "iconUrl":"leaflet/images/icons/mueble.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "oculto":{
+                        "iconUrl":"leaflet/images/icons/oculto.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "peletero":{
+                        "iconUrl":"leaflet/images/icons/peletero.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "posada":{
+                        "iconUrl":"leaflet/images/icons/posada.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "posada2":{
+                        "iconUrl":"leaflet/images/icons/posada.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "posada3":{
+                        "iconUrl":"leaflet/images/icons/posada.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "pueblo":{
+                        "iconUrl":"leaflet/images/icons/pueblo.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "puente":{
+                        "iconUrl":"leaflet/images/icons/puente.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "puerto":{
+                        "iconUrl":"leaflet/images/icons/puerto.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "ruinas":{
+                        "iconUrl":"leaflet/images/icons/ruinas.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "sastre":{
+                        "iconUrl":"leaflet/images/icons/sastre.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "templo":{
+                        "iconUrl":"leaflet/images/icons/templo.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "templo2":{
+                        "iconUrl":"leaflet/images/icons/templo.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "templo3":{
+                        "iconUrl":"leaflet/images/icons/templo.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "tienda":{
+                        "iconUrl":"leaflet/images/icons/tienda.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "torreon":{
+                        "iconUrl":"leaflet/images/icons/torreon.png",
+                        "iconSize":[35,35],
+                        "iconAnchor":[20,35],
+                        "popupAnchor": [-3,-18]
+                    },
+                    "poi":{
+                        "iconUrl":"leaflet/images/icons/poi.png",
+                        "iconSize":[15,30],
+                        "iconAnchor":[7,30],
+                        "popupAnchor": [0,-22]
+                    },
+                    "poi2":{
+                        "iconUrl":"leaflet/images/icons/poi.png",
+                        "iconSize":[15,30],
+                        "iconAnchor":[7,30],
+                        "popupAnchor": [0,-22]
+                    },
+                    "poi3":{
+                        "iconUrl":"leaflet/images/icons/poi.png",
+                        "iconSize":[15,30],
+                        "iconAnchor":[7,30],
+                        "popupAnchor": [0,-22]
+                    }
+                }
+            }
+
         //variables
             var markers = [];
-            var markersfiltana = [];
-            var markerslati = [];
+            var markersCity = [];
             var mapa;
-            
-            //#region icons
-            var filtanaIcon = L.icon({
-                iconUrl: 'leaflet/images/couria.png',
-                iconSize: [60, 60],
-                iconAnchor: [30, 60],
-                popupAnchor: [0, -40]
-            });
-            var IunelonIcon = L.icon({
-                iconUrl: 'leaflet/images/herug.png',
-                iconSize: [60, 60],
-                iconAnchor: [30, 60],
-                popupAnchor: [0, -40]
-            });
-            var VilondeIcon = L.icon({
-                iconUrl: 'leaflet/images/ocresyn.png',
-                iconSize: [60, 60],
-                iconAnchor: [30, 60],
-                popupAnchor: [0, -40]
-            });
-            var FetlondIcon = L.icon({
-                iconUrl: 'leaflet/images/perterra.png',
-                iconSize: [60, 60],
-                iconAnchor: [30, 60],
-                popupAnchor: [0, -40]
-            });
-            var ZunzirIcon = L.icon({
-                iconUrl: 'leaflet/images/nowe.png',
-                iconSize: [60, 60],
-                iconAnchor: [30, 60],
-                popupAnchor: [0, -40]
-            });
-            var BaranunIcon = L.icon({
-                iconUrl: 'leaflet/images/lagros.png',
-                iconSize: [60, 60],
-                iconAnchor: [30, 60],
-                popupAnchor: [0, -40]
-            });
-            var RaumerinIcon = L.icon({
-                iconUrl: 'leaflet/images/vopna.png',
-                iconSize: [60, 60],
-                iconAnchor: [30, 60],
-                popupAnchor: [0, -40]
-            });
-            var partyIcon = L.icon({
-                iconUrl: 'leaflet/images/dndicon.png',
-                iconSize: [30, 28],
-                iconAnchor: [15, 30],
-                popupAnchor: [0, -20]
-            });
-            //#endregion
-            
-            var party = L.marker([11.888853, 49.152832],{
-                draggable: false,
-                icon:partyIcon,
-            })
-            party.bindPopup('Party');
-            
-            //#region markers capitales
-            //Couria - Filtana
-            var Filtana = L.marker([13.603278, 49.724121],{
-                draggable: true,
-                icon: filtanaIcon
-            })
-            Filtana.bindPopup('Capital de Couria: Filtana');
-            //<a link="filtana" class="cityClick" onclick="onClickCityClick()">Filtana</a>
-
-            //Herug - Iunelon
-            var Iunelon = L.marker([4.412137, 74.267578],{
-                draggable: true,
-                icon: IunelonIcon,
-                draggable: false
-            })
-            Iunelon.bindPopup('Capital de Herug: Iunelon');
-
-            //Ocresyn - Vilonde
-            var Vilonde = L.marker([-24.307053, 70.532227],{
-                draggable: true,
-                icon: VilondeIcon,
-                draggable: false
-            })
-            Vilonde.bindPopup('Capital de Ocresyn: Vilonde');
-
-            //Perterra - Fetlond
-            var Fetlond = L.marker([-13.816744, 37.507324],{
-                draggable: true,
-                icon: FetlondIcon,
-                draggable: false
-            })
-            Fetlond.bindPopup('Capital de Perterra: Fetlond');
-
-            //Nowe - Zunzir
-            var Zunzir = L.marker([-8.05923, 0.505371],{
-                draggable: true,
-                icon: ZunzirIcon,
-                draggable: false
-            })
-            Zunzir.bindPopup('Capital de Nowe: Zunzir');
-            
-            //Lagros - Baranun
-            var Baranun = L.marker([-13.731381, -59.963379],{
-                draggable: true,
-                icon: BaranunIcon,
-                draggable: false
-            })
-            Baranun.bindPopup('Capital de Lagros: Baranun');
-
-            //Vopna - Raumerin
-            var Raumerin = L.marker([20.344627, 24.191895],{
-                draggable: true,
-                icon: RaumerinIcon,
-                draggable: false
-            })
-            Raumerin.bindPopup('Capital de Vopna: Raumerin');
-
-            markers.push(party, Filtana, Iunelon, Vilonde, Fetlond, Zunzir, Baranun, Raumerin);
-            //#endregion
-
-            //#region markers ciudades
-
-                //#region markers Couria
-                    //#region Filtana
-                    var Filtana_CastilloPaladines = L.marker([13.603278, 49.724121],{
-                        draggable: true
+            //party in function addMarkers
+            $.each(BBDD.world,function(key,value){
+                var pais = key;
+                $.each(BBDD.world[pais].markers,function(key,value){
+                    var city = key;
+                    var nowThisMarker = this;
+                    var iconsInThisCity = {};
+                    $.each(BBDD.world[pais].icons,function(key,value){
+                        var nowThisIconCity = this;
+                        var Icon = L.icon({
+                            iconUrl: nowThisIconCity.iconUrl,
+                            iconSize: nowThisIconCity.iconSize,
+                            iconAnchor: nowThisIconCity.iconAnchor,
+                            popupAnchor: nowThisIconCity.popupAnchor
+                        });
+                        iconsInThisCity[key] = Icon;
                     })
-                    Filtana_CastilloPaladines.bindPopup('Castillo de los Paladines - RIP');
-                    //#endregion
-                    //#region Lati
-
-                    //#endregion
-                    //#region Parta
-                    
-                    //#endregion
-                    //#region Veno
-                    
-                    //#endregion
-                //#endregion
-
-                //#region markers Herug
-                    //#region Gonfenoire
-                    
-                    //#endregion
-                //#endregion
-
-            //#endregion
-            //locateTheParty
-            /*party.on('dragend',function(e){
-                party.getPopup().setContent('Clicked'+ party.getLatLng().toString()).openOn(mapa);
-                updatePartyMarker();
-            })*/
+                    var iconThisMarker;
+                    if (nowThisMarker.tipoCiudad == "pueblo"){
+                        iconThisMarker = iconsInThisCity["pueblo"]
+                    }else if(nowThisMarker.tipoCiudad == "ciudad"){
+                        iconThisMarker = iconsInThisCity["ciudad"]
+                    }else{
+                        iconThisMarker = iconsInThisCity[key]
+                    }
+                    var Marker = L.marker(nowThisMarker.location,{
+                        draggable: nowThisMarker.draggable,
+                        bindPopup: nowThisMarker.bindPopup,
+                        icon: iconThisMarker
+                    });
+                    Marker.bindPopup(this.bindPopup);
+                    markers.push(Marker);
+                })
+                
+            })
 
         //functions
             //estandar
             function addNormalMap(){
                 mapa = L.map('mapTalesOfEchia').setView([0,0],1); 
-                L.tileLayer('TilesNormalHex/{z}/{x}/{y}.png',{
+                L.tileLayer('Tiles/TilesNormalHex/{z}/{x}/{y}.png',{
                     minZoom:4,
                     maxZoom: 6,
                     conituousWorld: false,
                     noWrap: true
                 }).addTo(mapa);
                 addMarkers(mapa);
+                
             }
 
             //regions
             function addRegionMap(){
                 mapa = L.map('mapTalesOfEchia_Regions').setView([0,0],1); 
-                L.tileLayer('TilesRegions/{z}/{x}/{y}.png',{
+                L.tileLayer('Tiles/TilesRegions/{z}/{x}/{y}.png',{
                     minZoom:4,
                     maxZoom: 6,
                     conituousWorld: false,
@@ -277,7 +808,7 @@
             //topo      
             function addTopoMap(){
                 mapa = L.map('mapTalesOfEchia_Topo').setView([0,0],1); 
-                L.tileLayer('TilesTopo/{z}/{x}/{y}.png',{
+                L.tileLayer('Tiles/TilesTopo/{z}/{x}/{y}.png',{
                     minZoom:4,
                     maxZoom: 6,
                     conituousWorld: false,
@@ -289,7 +820,7 @@
             //bio
             function addBioMap(){
                 mapa = L.map('mapTalesOfEchia_Bio').setView([0,0],1); 
-                L.tileLayer('TilesBio/{z}/{x}/{y}.png',{
+                L.tileLayer('Tiles/TilesBio/{z}/{x}/{y}.png',{
                     minZoom:4,
                     maxZoom: 6,
                     conituousWorld: false,
@@ -301,7 +832,7 @@
             //dynamicCity
             function addCity(city){
                 mapa = L.map('map'+city).setView([0,0],1);
-                L.tileLayer('Tiles'+city+'/{z}/{x}/{y}.png',{
+                L.tileLayer('Tiles/Tiles'+city+'/{z}/{x}/{y}.png',{
                     minZoom:3,
                     maxZoom: 5,
                     conituousWorld: false,
@@ -319,7 +850,9 @@
             //detect position --ERASE EVENTUALLY
             function addDetectPosition(mapa){
                 mapa.on('click', function(e) {
-                    alert(e.latlng);
+                    console.log(e.latlng)
+                    //console.log('"this":{\n"location":['+e.latlng+'],\n"draggable":false,\n"bindPopup":"bind"\n}')
+                    //console.log('"this":{\n"iconUrl":"leaflet/images/icons/this.png",\n"iconSize":[35,35],\n"iconAnchor":[20,35],\n"popupAnchor": [-3,-18]\n}')
                 });
             }
 
@@ -328,11 +861,70 @@
                 for (let i = 0; i < markers.length; i++) {
                     markers[i].addTo(mapa);
                 }
+
+                //PARTEY
+                var partyIcon = L.icon({
+                    iconUrl: 'leaflet/images/dndicon.png',
+                    iconSize: [20, 20],
+                    iconAnchor: [7, 20],
+                    popupAnchor: [0, -18]
+                });
+                var party = L.marker([10.206813, 42.890625],{
+                    draggable: true,
+                    icon:partyIcon,
+                })
+                party.bindPopup('Party');
+                party.addTo(mapa);
+
+                //LocateTheParty
+                party.on('dragend',function(e){
+                    party.getPopup().setContent('Clicked'+ party.getLatLng().toString()).openOn(mapa);
+                    updatePartyMarker();
+                })
             }
 
             //add markers for city dynamic
             function addMarkersCity(mapa,city){
-                console.log(window['markers'+city]);
+                $.each(BBDD.cities,function(key,value){
+                    if (key == city){
+                        $.each(BBDD.cities[city].markers,function(key,value){
+                            var nowThisMarker = this;
+                            var iconsInThisCity = {};
+                            $.each(BBDD.cities[city].icons,function(key,value){
+                                var nowThisIconCity = this; 
+                                var Icon = L.icon({
+                                    iconUrl: nowThisIconCity.iconUrl,
+                                    iconSize: nowThisIconCity.iconSize,
+                                    iconAnchor: nowThisIconCity.iconAnchor,
+                                    popupAnchor: nowThisIconCity.popupAnchor
+                                });
+                                iconsInThisCity[key] = Icon;
+                            })
+                            $.each(BBDD.genericIcons,function(key,value){
+                                var nowThisIconGeneral = this; 
+                                var Icon = L.icon({
+                                    iconUrl: nowThisIconGeneral.iconUrl,
+                                    iconSize: nowThisIconGeneral.iconSize,
+                                    iconAnchor: nowThisIconGeneral.iconAnchor,
+                                    popupAnchor: nowThisIconGeneral.popupAnchor
+                                });
+                                iconsInThisCity[key] = Icon;
+                            })
+                            var Marker = L.marker(this.location,{
+                                draggable: nowThisMarker.draggable,
+                                bindPopup: nowThisMarker.bindPopup,
+                                icon: iconsInThisCity[key]
+                            });
+                            Marker.bindPopup(this.bindPopup);
+                            markersCity.push(Marker);
+                        })
+                        for (let i = 0; i < markersCity.length; i++) {
+                            markersCity[i].addTo(mapa);
+                        }
+                        markersCity = [];
+                    }
+                })
+                console.log(city);
                 
             }
             
@@ -368,7 +960,6 @@
                     alert("Under construction!")
                 }else{
                     var IdCity = $(this).attr('link');
-                    console.log($(this).html())
                     removeMaps();
                     $('body').append('<div id="map'+IdCity+'" class="customMap"></div>');
                     addCity(IdCity);
@@ -377,7 +968,6 @@
             })
             function onClickCityClick(){
                 var IdCity = $(this).attr('link');
-                console.log(IdCity)
                 removeMaps();
                 $('body').append('<div id="map'+IdCity+'" class="customMap"></div>');
                 addCity(IdCity);
@@ -385,7 +975,7 @@
         //switcher ciudades
             $('#couria,#herug,#lagros,#nowe,#ocresyn,#perterra,#vopna').on('click',function(){
                 if (this.classList.contains('notYet')){
-                    alert("You haven't visited this country!")
+                    alert("No has visitado este país!")
                 }else{
                     var IdPais = this.id;
                     if ($('.'+IdPais+'UL').css('display') == "none"){
@@ -394,7 +984,6 @@
                         $('.'+IdPais+'UL').hide();
                     }
                 }
-                
             })
 
         //START of the actual execution
