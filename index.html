@@ -51,6 +51,10 @@
                     background: rgba(10,10,10,0.6) !important;
                     color: white !important;
                 }
+                .leaflet-container a {
+                    color:white !important;
+                    cursor:pointer;
+                }
                 
         </style>
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
@@ -100,24 +104,24 @@
                             "Filtana":{
                                 "location":[13.603278,49.724121],
                                 "draggable":false,
-                                "bindPopup":"Capital de Couria: Filtana"
+                                "bindPopup":"Capital de Couria: <a onclick='openTheCity(`Filtana`)'>Filtana</a>"
                             },
                             "Lati":{
                                 "location":[3.601142, 62.841797],
                                 "draggable":false,
-                                "bindPopup":"Lati",
+                                "bindPopup":"<a onclick='openTheCity(`Lati`)'>Lati</a>",
                                 "tipoCiudad":"pueblo"
                             },
                             "Parta":{
                                 "location":[11.781325, 49.020996],
                                 "draggable":false,
-                                "bindPopup":"Parta",
+                                "bindPopup":"<a onclick='openTheCity(`Parta`)'>Parta</a>",
                                 "tipoCiudad":"ciudad"
                             },
                             "Veno":{
                                 "location":[10.01213, 42.209473],
                                 "draggable":false,
-                                "bindPopup":"Veno",
+                                "bindPopup":"<a onclick='openTheCity(`Veno`)'>Veno</a>",
                                 "tipoCiudad":"ciudad"
                             }
                         },
@@ -148,12 +152,12 @@
                                 "location":[4.412137, 74.267578],
                                 "draggable":false,
                                 "icon":"IunelonIcon",
-                                "bindPopup":"Capital de Herug: Iunelon"
+                                "bindPopup":"Capital de Herug: <a onclick='openTheCity(`Iunelon`)'>Iunelon</a>"
                             },
                             "Gonfenoire":{
                                 "location":[-3.052754, 78.376465],
                                 "draggable":false,
-                                "bindPopup":"Gonfenoire",
+                                "bindPopup":"<a onclick='openTheCity(`Gonfenoire`)'>Gonfenoire</a>",
                                 "tipoCiudad":"ciudad"
                             }
                         },
@@ -780,6 +784,9 @@
             })
 
         //functions
+            function openTheCity(ciudad){
+                $('#switcherCity').find('.buttonswitcher[link="'+ciudad+'"]').click()
+            }
             //estandar
             function addNormalMap(){
                 mapa = L.map('mapTalesOfEchia').setView([0,0],1); 
@@ -870,7 +877,7 @@
                     popupAnchor: [0, -18]
                 });
                 var party = L.marker([10.206813, 42.890625],{
-                    draggable: true,
+                    draggable: false,
                     icon:partyIcon,
                 })
                 party.bindPopup('Party');
