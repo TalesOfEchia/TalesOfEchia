@@ -1,9 +1,11 @@
 <html>
     <head>
         <style>
+                @font-face { font-family: Roboto; src: url('Roboto-Regular.ttf'); } 
                 html{
                     height:100%;
                     margin:0;
+                    font-family: Roboto;
                 }
                 body{
                     height:100%;
@@ -42,6 +44,21 @@
                     width: auto;
                     height: auto;
                     z-index: 401;
+                }
+                #textoResumen{
+                    position: absolute;
+                    display: block;
+                    margin-left: auto;
+                    margin-right: auto;
+                    top: 10rem;
+                    left: 25%;
+                    width: 50%;
+                    height: auto;
+                    z-index: 501;
+                    background-color: rgba(10,10,10,0.5);
+                    padding:1em;
+                    display:none;
+                    color:white;
                 }
                 .buttonswitcher{
                     display:block;
@@ -105,7 +122,12 @@
             <button class="buttonswitcher notYet" id="vopna">Vopna</button>
         </div>
         <div id="switcherResumenes">
-            <button class="buttonswitcher notYet" id="resumenes">Resúmenes</button>
+            <button class="buttonswitcher" id="resumenes" onclick="getResumen()">Resúmenes</button>
+            <ul class="listaSwitcher resumenesUL" style="display:none">
+                
+            </ul>
+        </div>
+        <div id="textoResumen" onclick="removeThisAndHide()">
         </div>
         <script>
             const BBDD = {
@@ -751,10 +773,14 @@
                         "iconAnchor":[7,30],
                         "popupAnchor": [0,-22]
                     }
+                },
+                "resumenes":{
+                    "20220204":"/resumenes/20220204.txt"
                 }
             }
 
         //variables
+            var resumen = "";
             var markers = [];
             var markersCity = [];
             var mapa;
@@ -795,8 +821,37 @@
             })
 
         //functions
+            function removeThisAndHide(){
+                $('#textoResumen').hide();
+                $('#textoResumen').find('h1').remove();
+                $('#textoResumen').find('p').remove();
+            }
+            function loadResumenes(){
+                $('.resumenesUL').find('li').remove();
+                $.each(BBDD.resumenes,function(key,value){
+                    console.log(key)
+                    $('.resumenesUL').append('<li class="elementoSwitcher '+key+'Li"><button class="buttonswitcher '+key+'Button cityClick" link="'+value+'" id="'+key+'" onclick="showResumen(this)">'+key+'</button></li>')
+                })
+            }
+            function getResumen(){
+                if ($('.resumenesUL').css('display') == "none"){
+                    $('.resumenesUL').show();
+                }else{
+                    $('.resumenesUL').hide();
+                }
+            }
+            function showResumen(value){
+                $('#textoResumen').find('h1').remove();
+                $('#textoResumen').find('p').remove();
+                var attributo = $(value).attr('link')
+                var titulo = $(value).attr('id');
+                var objeto =  $.get(attributo);
+                var texto = objeto.responseText;
+                $('#textoResumen').show().append('<h1>'+titulo+'</h1>');
+                $('#textoResumen').append('<p>'+texto+'</p>');
+            }
             function openTheCity(ciudad){
-                $('#switcherCity').find('.buttonswitcher[link="'+ciudad+'"]').click()
+                $('#switcherCity').find('.buttonswitcher[link="'+ciudad+'"]').click();
             }
             //estandar
             function addNormalMap(){
@@ -1007,6 +1062,7 @@
         //START of the actual execution
             $('body').append('<div id="mapTalesOfEchia" class="customMap"></div>');
             addNormalMap();
+            loadResumenes();
         </script>
     </body>
 </html>
