@@ -775,7 +775,7 @@
                     }
                 },
                 "resumenes":{
-                    "20220204":"https://talesofechia.github.io/resumenes/20220204.txt"
+                    "20220204":"Esto es un texto temporal."
                 }
             }
 
@@ -846,7 +846,8 @@
                 var attributo = $(value).attr('link')
                 var titulo = $(value).attr('id');
                 var objeto =  $.get(attributo);
-                var texto = objeto.responseText;
+                //var texto = objeto.responseText;
+                var texto = BBDD.resumenes[titulo];
                 $('#textoResumen').show().append('<h1>'+titulo+'</h1>');
                 $('#textoResumen').append('<p>'+texto+'</p>');
             }
