@@ -847,7 +847,7 @@
                 var titulo = $(value).attr('id');
                 var objeto =  $.get(attributo,function(txt){
                     $('#textoResumen').show().append('<h1>'+titulo+'</h1>');
-                    $('#textoResumen').append('<p>'+txt.textResponse+'</p>');
+                    $('#textoResumen').append('<p>'+txt+'</p>');
                 })
                 
             }
