@@ -845,11 +845,11 @@
                 $('#textoResumen').find('p').remove();
                 var attributo = $(value).attr('link')
                 var titulo = $(value).attr('id');
-                debugger;
-                var objeto =  $.get(attributo);
-                var texto = objeto.responseText;
-                $('#textoResumen').show().append('<h1>'+titulo+'</h1>');
-                $('#textoResumen').append('<p>'+texto+'</p>');
+                var objeto =  $.get(attributo,function(txt){
+                    $('#textoResumen').show().append('<h1>'+titulo+'</h1>');
+                    $('#textoResumen').append('<p>'+txt.textResponse+'</p>');
+                })
+                
             }
             function openTheCity(ciudad){
                 $('#switcherCity').find('.buttonswitcher[link="'+ciudad+'"]').click();
