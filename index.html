@@ -845,6 +845,7 @@
                 $('#textoResumen').find('p').remove();
                 var attributo = $(value).attr('link')
                 var titulo = $(value).attr('id');
+                debugger;
                 var objeto =  $.get(attributo);
                 var texto = objeto.responseText;
                 $('#textoResumen').show().append('<h1>'+titulo+'</h1>');
