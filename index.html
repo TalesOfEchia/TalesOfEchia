@@ -60,6 +60,28 @@
                     display:none;
                     color:white;
                 }
+                #legendTable{
+                    position: absolute;
+                    display: block;
+                    margin-left: auto;
+                    margin-right: auto;
+                    top: 12rem;
+                    left:4em;
+                    height: auto;
+                    z-index: 401;
+                    background-color: rgba(10,10,10,0.5);
+                    padding:1em;
+                    color:white;
+                    display:none;
+                }
+                #legendToggle{
+                    position: absolute;
+                    top:10em;
+                    left:4em;
+                    width:auto;
+                    height: auto;
+                    z-index: 401;
+                }
                 .buttonswitcher{
                     display:block;
                     margin-right:auto;
@@ -87,6 +109,11 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </head>
     <body>
+        <div id="legendToggle">
+            <button class="buttonswitcher" id="legendToggler" onclick="toggleLegendTable()">Leyenda</button>
+        </div>
+        <table id="legendTable">
+        </table>
         <div id="switcher">
             <button class="buttonswitcher" id="normal">Mapa estándar</button>
             <button class="buttonswitcher" id="regions">Mapa regiones</button>
@@ -477,301 +504,351 @@
                         "iconUrl":"leaflet/images/icons/alquimista.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Alquimista"
                     },
                     "arboleda":{
                         "iconUrl":"leaflet/images/icons/arboleda.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Arboleda"
                     },
                     "arsenal":{
                         "iconUrl":"leaflet/images/icons/arsenal.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Arsenal"
                     },
                     "banco":{
                         "iconUrl":"leaflet/images/icons/banco.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Banco"
                     },
                     "campamento":{
                         "iconUrl":"leaflet/images/icons/campamento.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Campamento"
                     },
                     "campodebatalla":{
                         "iconUrl":"leaflet/images/icons/campodebatalla.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Batalla"
                     },
                     "campodebatallaboss":{
                         "iconUrl":"leaflet/images/icons/campodebatallaboss.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Batalla finalizada"
                     },
                     "caravana":{
                         "iconUrl":"leaflet/images/icons/caravana.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Caravana"
                     },
                     "casa":{
                         "iconUrl":"leaflet/images/icons/casa.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Casa"
                     },
                     "cementerio":{
                         "iconUrl":"leaflet/images/icons/cementerio.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Cementerio"
                     },
                     "ciudad":{
                         "iconUrl":"leaflet/images/icons/ciudad.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Ciudad"
                     },
                     "color":{
                         "iconUrl":"leaflet/images/icons/color.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Tintes"
                     },
                     "cripta":{
                         "iconUrl":"leaflet/images/icons/cripta.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Cripta"
                     },
                     "cueva":{
                         "iconUrl":"leaflet/images/icons/cueva.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Cueva"
                     },
                     "dungeon":{
                         "iconUrl":"leaflet/images/icons/dungeon.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Dungeon"
                     },
                     "encantamiento":{
                         "iconUrl":"leaflet/images/icons/encantamiento.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Encantamientos"
                     },
                     "escudo":{
                         "iconUrl":"leaflet/images/icons/escudo.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Militar"
                     },
                     "establos":{
                         "iconUrl":"leaflet/images/icons/establos.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Establos"
                     },
                     "estado":{
                         "iconUrl":"leaflet/images/icons/estado.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Feudo"
                     },
                     "evento":{
                         "iconUrl":"leaflet/images/icons/evento.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Evento"
                     },
                     "faro":{
                         "iconUrl":"leaflet/images/icons/faro.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Faro"
                     },
                     "forja":{
                         "iconUrl":"leaflet/images/icons/forja.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Forja"
                     },
                     "forja2":{
                         "iconUrl":"leaflet/images/icons/forja.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Forja2"
                     },
                     "fort":{
                         "iconUrl":"leaflet/images/icons/fort.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Fuerte"
                     },
                     "fortaleza":{
                         "iconUrl":"leaflet/images/icons/fortaleza.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Fortaleza"
                     },
                     "granja":{
                         "iconUrl":"leaflet/images/icons/granja.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Granja"
                     },
                     "joyero":{
                         "iconUrl":"leaflet/images/icons/joyero.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Joyero" 
                     },
                     "luchador":{
                         "iconUrl":"leaflet/images/icons/luchador.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Mercenarios"
                     },
                     "madera":{
                         "iconUrl":"leaflet/images/icons/madera.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Carpintero"
                     },
                     "magos":{
                         "iconUrl":"leaflet/images/icons/magos.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Tienda mágica"
                     },
                     "mina":{
                         "iconUrl":"leaflet/images/icons/mina.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Mina"
                     },
                     "mueble":{
                         "iconUrl":"leaflet/images/icons/mueble.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Carpintero2"
                     },
                     "oculto":{
                         "iconUrl":"leaflet/images/icons/oculto.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Oculto/Estudio"
                     },
                     "peletero":{
                         "iconUrl":"leaflet/images/icons/peletero.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Peletero"
                     },
                     "posada":{
                         "iconUrl":"leaflet/images/icons/posada.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Posada"
                     },
                     "posada2":{
                         "iconUrl":"leaflet/images/icons/posada.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Posada2"
                     },
                     "posada3":{
                         "iconUrl":"leaflet/images/icons/posada.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Posada3"
                     },
                     "pueblo":{
                         "iconUrl":"leaflet/images/icons/pueblo.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Pueblo"
                     },
                     "puente":{
                         "iconUrl":"leaflet/images/icons/puente.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Puente"
                     },
                     "puerto":{
                         "iconUrl":"leaflet/images/icons/puerto.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Puerto"
                     },
                     "ruinas":{
                         "iconUrl":"leaflet/images/icons/ruinas.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Ruinas"
                     },
                     "sastre":{
                         "iconUrl":"leaflet/images/icons/sastre.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Sastre"
                     },
                     "templo":{
                         "iconUrl":"leaflet/images/icons/templo.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Templo"
                     },
                     "templo2":{
                         "iconUrl":"leaflet/images/icons/templo.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Templo2"
                     },
                     "templo3":{
                         "iconUrl":"leaflet/images/icons/templo.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Templo3"
                     },
                     "tienda":{
                         "iconUrl":"leaflet/images/icons/tienda.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Tienda general"
                     },
                     "torreon":{
                         "iconUrl":"leaflet/images/icons/torreon.png",
                         "iconSize":[35,35],
                         "iconAnchor":[20,35],
-                        "popupAnchor": [-3,-18]
+                        "popupAnchor": [-3,-18],
+                        "literal":"Torreón"
                     },
                     "poi":{
                         "iconUrl":"leaflet/images/icons/poi.png",
                         "iconSize":[15,30],
                         "iconAnchor":[7,30],
-                        "popupAnchor": [0,-22]
+                        "popupAnchor": [0,-22],
+                        "literal":"Punto de interés"
                     },
                     "poi2":{
                         "iconUrl":"leaflet/images/icons/poi.png",
                         "iconSize":[15,30],
                         "iconAnchor":[7,30],
-                        "popupAnchor": [0,-22]
+                        "popupAnchor": [0,-22],
+                        "literal":"Punto de interés2"
                     },
                     "poi3":{
                         "iconUrl":"leaflet/images/icons/poi.png",
                         "iconSize":[15,30],
                         "iconAnchor":[7,30],
-                        "popupAnchor": [0,-22]
+                        "popupAnchor": [0,-22],
+                        "literal":"Punto de interés3"
                     }
                 },
                 "resumenes":{
@@ -821,6 +898,37 @@
             })
 
         //functions
+            function toggleLegendTable(){
+                if ($('#legendTable').css('display') == "none"){
+                    $('#legendTable').show();
+                }else{
+                    $('#legendTable').hide();
+                }
+            }
+            function loadSwitcher(){
+                var counter=0;
+                $.each(BBDD.genericIcons,function(key,value){
+                    var nombre = value.literal;
+                    var imagen = value.iconUrl;
+                    var regexsito = /[0-9]/;
+                    if (!regexsito.test(nombre)){
+                        var tr =  $('<tr class="legendTr"> </tr>');
+                        var td1 = $('<td class="legendSwitcher legendTd"> <img src="'+imagen+'" width="35" height="35"> </td>');
+                        var td2 = $('<td class="legendSwitcher legendLi"> <p>'+nombre+'</p></td>');
+                        var lastTr = $('#legendTable').children().last();
+                        if (counter == 0){
+                            $('#legendTable').append(tr);
+                            $(td1).appendTo(tr);
+                            $(td2).appendTo(tr);
+                        }else if(counter == 1 || counter == 2){
+                            $(td1).appendTo(lastTr);
+                            $(td2).appendTo(lastTr);
+                        }
+                        counter++;
+                        if (counter == 3) counter = 0;
+                    }
+                })
+            }
             function removeThisAndHide(){
                 $('#textoResumen').hide();
                 $('#textoResumen').find('h1').remove();
@@ -997,9 +1105,7 @@
                         }
                         markersCity = [];
                     }
-                })
-                console.log(city);
-                
+                })                
             }
             
             //updatePartyMarker
@@ -1064,6 +1170,7 @@
             $('body').append('<div id="mapTalesOfEchia" class="customMap"></div>');
             addNormalMap();
             loadResumenes();
+            loadSwitcher();
         </script>
     </body>
 </html>
