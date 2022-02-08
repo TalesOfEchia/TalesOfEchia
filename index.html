@@ -910,10 +910,12 @@
                 $.each(BBDD.genericIcons,function(key,value){
                     var nombre = value.literal;
                     var imagen = value.iconUrl;
+                    var x = value.iconSize[0];
+                    var y = value.iconSize[1];
                     var regexsito = /[0-9]/;
                     if (!regexsito.test(nombre)){
                         var tr =  $('<tr class="legendTr"> </tr>');
-                        var td1 = $('<td class="legendSwitcher legendTd"> <img src="'+imagen+'" width="35" height="35"> </td>');
+                        var td1 = $('<td class="legendSwitcher legendTd"> <img src="'+imagen+'" width="'+x+'" height="'+y+'"> </td>');
                         var td2 = $('<td class="legendSwitcher legendLi"> <p>'+nombre+'</p></td>');
                         var lastTr = $('#legendTable').children().last();
                         if (counter == 0){
