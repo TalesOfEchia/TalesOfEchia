@@ -55,21 +55,21 @@
                     width: 50%;
                     height: auto;
                     z-index: 501;
-                    background-color: rgba(10,10,10,0.5);
+                    background-color: rgba(10,10,10,0.6);
                     padding:1em;
                     display:none;
                     color:white;
                 }
-                #legendTable{
+                #legendTable, #NPCTable{
                     position: absolute;
                     display: block;
                     margin-left: auto;
                     margin-right: auto;
-                    top: 12rem;
+                    top: 14rem;
                     left:4em;
                     height: auto;
                     z-index: 401;
-                    background-color: rgba(10,10,10,0.5);
+                    background-color: rgba(10,10,10,0.6);
                     padding:1em;
                     color:white;
                     display:none;
@@ -82,13 +82,24 @@
                     height: auto;
                     z-index: 401;
                 }
+                #NPCToggle{
+                    position: absolute;
+                    top:12em;
+                    left:4em;
+                    width:auto;
+                    height: auto;
+                    z-index: 401;
+                }
+                .NPCSwitcher{
+                    text-align: center;
+                } 
                 .buttonswitcher{
                     display:block;
                     margin-right:auto;
                     margin-left:auto;
                     width:7em;
                     border-radius: 5px;
-                    background-color:rgba(10,10,10,0.5);
+                    background-color:rgba(10,10,10,0.6);
                     color:white;
                 }
                 ul{
@@ -113,6 +124,11 @@
             <button class="buttonswitcher" id="legendToggler" onclick="toggleLegendTable()">Leyenda</button>
         </div>
         <table id="legendTable">
+        </table>
+        <div id="NPCToggle">
+            <button class="buttonswitcher" id="NPCToggler" onclick="toggleLegendNPC()">NPC</button>
+        </div>
+        <table id="NPCTable">
         </table>
         <div id="switcher">
             <button class="buttonswitcher" id="normal">Mapa estándar</button>
@@ -386,6 +402,20 @@
                                 "draggable":false,
                                 "bindPopup":"Puerto"
                             }
+                        },
+                        "NPC":{
+                            "Bru":"leaflet/images/NPC/Filtana/bru.png",
+                            "Elalar":"leaflet/images/NPC/Filtana/elalar.png",
+                            "Gizzim":"leaflet/images/NPC/Filtana/gizzim.png",
+                            "Hask":"leaflet/images/NPC/Filtana/hask.png",
+                            "Indoris":"leaflet/images/NPC/Filtana/indoris.png",
+                            "Korthum":"leaflet/images/NPC/Filtana/korthum.png",
+                            "Luvalur":"leaflet/images/NPC/Filtana/luvalur.png",
+                            "Neridi":"leaflet/images/NPC/Filtana/neridi.png",
+                            "Nube":"leaflet/images/NPC/Filtana/nube.png",
+                            "Oririe":"leaflet/images/NPC/Filtana/oririe.png",
+                            "Verjer":"leaflet/images/NPC/Filtana/verjer.png",
+                            "Zerba":"leaflet/images/NPC/Filtana/zerba.png"
                         }
                     },
                     "Lati":{
@@ -423,6 +453,12 @@
                                 "draggable":false,
                                 "bindPopup":"Tienda de Kelkian"
                             }
+                        },
+                        "NPC":{
+                            "Galden":"leaflet/images/NPC/Parta/galden.png",
+                            "Kelkian":"leaflet/images/NPC/Parta/kelkian.png",
+                            "Nethbis":"leaflet/images/NPC/Parta/nethbis.png",
+                            "Vadrug, el mejor goblin habido y por haber, aunque parezca un firbolg":"leaflet/images/NPC/Parta/vadrug.png"
                         }
                     },
                     "Veno":{
@@ -447,6 +483,17 @@
                                 "draggable":false,
                                 "bindPopup":"Los ocho calderos - Posada de Ninoa"
                             }
+                        },
+                        "NPC":{
+                            "Barón":"leaflet/images/NPC/Veno/magdeg.png",
+                            "Belace":"leaflet/images/NPC/Veno/belace.png",
+                            "Fargrom":"leaflet/images/NPC/Veno/fargrom.png",
+                            "Gilgamesh":"leaflet/images/NPC/Veno/gilgamesh.png",
+                            "Lid":"leaflet/images/NPC/Veno/lid.png",
+                            "Norgin":"leaflet/images/NPC/Veno/norgin.png",
+                            "Shisla":"leaflet/images/NPC/Veno/shisla.png",
+                            "Yaquinn":"leaflet/images/NPC/Veno/yaquinn.png",
+                            "Zhol":"leaflet/images/NPC/Veno/zhol.png"
                         }
                     },
                     "Gonfenoire":{
@@ -898,14 +945,49 @@
             })
 
         //functions
+            
             function toggleLegendTable(){
                 if ($('#legendTable').css('display') == "none"){
                     $('#legendTable').show();
+                    $('#NPCTable').hide();
+                    $('.listaSwitcher').hide();
+                    $('.resumenesUL').hide();
                 }else{
                     $('#legendTable').hide();
                 }
             }
-            function loadSwitcher(){
+            function toggleLegendNPC(){
+                if ($('#NPCTable').css('display') == "none"){
+                    $('#NPCTable').show();
+                    $('#legendTable').hide();
+                    $('.listaSwitcher').hide();
+                    $('.resumenesUL').hide();
+                }else{
+                    $('#NPCTable').hide();
+                }
+            }
+            function addNPCCity(city){
+                var counter=0;
+                $.each(BBDD.cities[city].NPC,function(key,value){
+                    var nombre = key;
+                    var imagen = value;
+                    var tr = $('<tr class="NPCTr"> </tr>');
+                    var td1 = $('<td class="NPCSwitcher NPCLi"> <p>'+nombre+'</p></td>');
+                    var td2 = $('<td class="NPCSwitcher NPCTd"> <img src="'+imagen+'" width="75px" height="75px" style="width:5em;height:5em;padding-right:2em"> </td>');
+                    var lastTr = $('#NPCTable').children().last();
+                        if (counter == 0){
+                            $('#NPCTable').append(tr);
+                            $(td1).appendTo(tr);
+                            $(td2).appendTo(tr);
+                        }else if(counter < 7){
+                            $(td1).appendTo(lastTr);
+                            $(td2).appendTo(lastTr);
+                        }
+                        counter++;
+                        if (counter == 7) counter = 0;
+                })
+            }
+            function loadLegendSwitcher(){
                 var counter=0;
                 $.each(BBDD.genericIcons,function(key,value){
                     var nombre = value.literal;
@@ -946,6 +1028,9 @@
             function getResumen(){
                 if ($('.resumenesUL').css('display') == "none"){
                     $('.resumenesUL').show();
+                    $('#legendTable').hide();
+                    $('#NPCTable').hide();
+                    $('.listaSwitcher').hide();
                 }else{
                     $('.resumenesUL').hide();
                 }
@@ -1023,12 +1108,18 @@
                     noWrap: true
                 }).addTo(mapa);
                 addMarkersCity(mapa,city);
+                addNPCCity(city);
             }
-
+            
             //remove maps of the body
-            function removeMaps(){
+            function resetEverything(){
+                $('#NPCTable').hide();
+                $('#legendTable').hide();
+                $('.listaSwitcher').hide();
+                $('#NPCTable').children().remove();
                 mapa.remove();
                 $('.customMap').remove();
+
             }
             
             //detect position --ERASE EVENTUALLY
@@ -1118,22 +1209,22 @@
         //On clicks
         //switcher mapas
             $('#normal').on('click',function(){
-                removeMaps();
+                resetEverything();
                 $('body').append('<div id="mapTalesOfEchia" class="customMap"></div>');
                 addNormalMap();
             })
             $('#regions').on('click',function(){
-                removeMaps();
+                resetEverything();
                 $('body').append('<div id="mapTalesOfEchia_Regions" class="customMap"></div>');
                 addRegionMap();
             })
             $('#topo').on('click',function(){
-                removeMaps();
+                resetEverything();
                 $('body').append('<div id="mapTalesOfEchia_Topo" class="customMap"></div>');
                 addTopoMap();
             })
             $('#bio').on('click',function(){
-                removeMaps();
+                resetEverything();
                 $('body').append('<div id="mapTalesOfEchia_Bio" class="customMap"></div>');
                 addBioMap();
             })
@@ -1142,7 +1233,7 @@
                     alert("Under construction!")
                 }else{
                     var IdCity = $(this).attr('link');
-                    removeMaps();
+                    resetEverything();
                     $('body').append('<div id="map'+IdCity+'" class="customMap"></div>');
                     addCity(IdCity);
                 }
@@ -1150,7 +1241,7 @@
             })
             function onClickCityClick(){
                 var IdCity = $(this).attr('link');
-                removeMaps();
+                resetEverything();
                 $('body').append('<div id="map'+IdCity+'" class="customMap"></div>');
                 addCity(IdCity);
             }
@@ -1161,7 +1252,9 @@
                 }else{
                     var IdPais = this.id;
                     if ($('.'+IdPais+'UL').css('display') == "none"){
-                    $('.'+IdPais+'UL').show();
+                        $('.'+IdPais+'UL').show();
+                        $('#NPCTable').hide();
+                        $('#legendTable').hide();
                     }else{
                         $('.'+IdPais+'UL').hide();
                     }
@@ -1172,7 +1265,7 @@
             $('body').append('<div id="mapTalesOfEchia" class="customMap"></div>');
             addNormalMap();
             loadResumenes();
-            loadSwitcher();
+            loadLegendSwitcher();
         </script>
     </body>
 </html>
