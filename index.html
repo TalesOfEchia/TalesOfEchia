@@ -1054,10 +1054,13 @@
                 $('#textoResumen').find('h1').remove();
                 $('#textoResumen').find('p').remove();
                 var attributo = $(value).attr('link')
-                var titulo = $(value).attr('id');
-                var objeto =  $.get(attributo,function(txt){
+                var objeto =  $.get(attributo,function(txt){ 
+                    var titulo = txt.split("////")[0];
+                    var subtitulo = txt.split("////")[1];
+                    var texto = txt.split("////")[2];
                     $('#textoResumen').show().append('<h1>'+titulo+'</h1>');
-                    $('#textoResumen').append('<p>'+txt+'</p>');
+                    $('#textoResumen').show().append('<h2>'+subtitulo+'</h2>');
+                    $('#textoResumen').append('<p>'+texto+'</p>');
                 })
                 
             }
