@@ -963,20 +963,20 @@
             
             function toggleLegendTable(){
                 if ($('#legendTable').css('display') == "none"){
-                    $('#legendTable').show();
                     $('#NPCTable').hide();
                     $('.listaSwitcher').hide();
                     $('.resumenesUL').hide();
+                    $('#legendTable').show();
                 }else{
                     $('#legendTable').hide();
                 }
             }
             function toggleLegendNPC(){
                 if ($('#NPCTable').css('display') == "none"){
-                    $('#NPCTable').show();
                     $('#legendTable').hide();
                     $('.listaSwitcher').hide();
                     $('.resumenesUL').hide();
+                    $('#NPCTable').show();
                 }else{
                     $('#NPCTable').hide();
                 }
@@ -1036,17 +1036,16 @@
             function loadResumenes(){
                 $('.resumenesUL').find('li').remove();
                 $.each(BBDD.resumenes,function(key,value){
-                    console.log(key)
                     $('.resumenesUL').append('<li class="elementoSwitcher '+key+'Li"><button class="buttonswitcher '+key+'Button cityClick" link="'+value+'" id="'+key+'" onclick="showResumen(this)">'+key+'</button></li>')
                 })
             }
             function getResumen(){
                 debugger;
                 if ($('.resumenesUL').css('display') == "none"){
-                    $('.resumenesUL').show();
                     $('#legendTable').hide();
                     $('#NPCTable').hide();
                     $('.listaSwitcher').hide();
+                    $('.resumenesUL').show();
                 }else{
                     $('.resumenesUL').hide();
                 }
@@ -1129,6 +1128,7 @@
             
             //remove maps of the body
             function resetEverything(){
+                $('.resumenesUL').hide();
                 $('#NPCTable').hide();
                 $('#legendTable').hide();
                 $('.listaSwitcher').hide();
@@ -1268,9 +1268,10 @@
                 }else{
                     var IdPais = this.id;
                     if ($('.'+IdPais+'UL').css('display') == "none"){
-                        $('.'+IdPais+'UL').show();
                         $('#NPCTable').hide();
                         $('#legendTable').hide();
+                        $('.resumenesUL').hide();
+                        $('.'+IdPais+'UL').show();
                     }else{
                         $('.'+IdPais+'UL').hide();
                     }
