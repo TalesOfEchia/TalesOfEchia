@@ -1053,6 +1053,7 @@
             }
             function showResumen(value){
                 $('#textoResumen').find('h1').remove();
+                $('#textoResumen').find('h2').remove();
                 $('#textoResumen').find('p').remove();
                 var attributo = $(value).attr('link')
                 var objeto =  $.get(attributo,function(txt){ 
