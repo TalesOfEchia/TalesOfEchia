@@ -1061,9 +1061,15 @@
                     var titulo = txt.split("////")[0];
                     var subtitulo = txt.split("////")[1];
                     var texto = txt.split("////")[2];
+                    var textosPorParrafos = textos.split("|");
+                    
                     $('#textoResumen').show().append('<h1>'+titulo+'</h1>');
                     $('#textoResumen').show().append('<h2>'+subtitulo+'</h2>');
-                    $('#textoResumen').append('<p>'+texto+'</p>');
+
+                    $.each(textosPorParrafos,function(value){
+                        $('#textoResumen').append('<p>'+value+'</p>');
+                    })
+                    
                 })
                 
             }
