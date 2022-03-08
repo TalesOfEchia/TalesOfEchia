@@ -1066,7 +1066,7 @@
                     $('#textoResumen').show().append('<h1>'+titulo+'</h1>');
                     $('#textoResumen').show().append('<h2>'+subtitulo+'</h2>');
 
-                    $.each(textosPorParrafos,function(value){
+                    $.each(textosPorParrafos,function(key,value){
                         $('#textoResumen').append('<p>'+value+'</p>');
                     })
                     
